@@ -21,8 +21,22 @@ const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} >{anecdote.content}</li>)}
+      {anecdotes
+      .map(anecdote => 
+      <li key={anecdote.id} >
+        <Link to={`/anecdotes/${anecdote.id}`} >{anecdote.content}</Link>
+      </li>
+      )}
     </ul>
+  </div>
+)
+
+const Anecdote = ({ anecdote }) => (
+  <div>
+    <h2>{anecdote.content} by {anecdote.author}</h2>
+    <div>has {anecdote.votes} votes</div>
+    <div>for more info see <a href={anecdote.info}>{anecdote.info}</a>}</div>
+
   </div>
 )
 
@@ -42,6 +56,7 @@ const About = () => (
 
 const Footer = () => (
   <div>
+    <br></br>
     Anecdote app for <a href='https://courses.helsinki.fi/fi/tkt21009'>Full Stack -sovelluskehitys</a>.
 
     See <a href='https://github.com/fullstack-hy2019/routed-anecdotes/blob/master/src/App.js'>https://github.com/fullstack-hy2019/routed-anecdotes/blob/master/src/App.js</a> for the source code.
@@ -107,6 +122,10 @@ const App = () => {
 
   const [notification, setNotification] = useState('')
 
+  const findAnecdoteId = id => {
+    return anecdotes.find(anecdote => anecdote.id === id)
+  }
+
   const addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
@@ -131,9 +150,10 @@ const Routes = () => {
   return (
     <div>
       <Route exact path="/" render={() => <AnecdoteList anecdotes={anecdotes} /> } />
-      <Route path="/anecdotes" render={() => <AnecdoteList anecdotes={anecdotes} /> } />
+      <Route exact path="/anecdotes" render={() => <AnecdoteList anecdotes={anecdotes} /> } />
       <Route path="/create" render={() => <CreateNew addNew={addNew} /> } />
       <Route path="/about" render={() => <About /> } />
+      <Route exact path='/anecdotes/:id' render={({ match }) => <Anecdote anecdote={anecdoteById(match.params.id)}/>}  />
     </div>
   )
 }

@@ -1,8 +1,10 @@
 import { 
   BrowserRouter as Router,
-  Route, Link, Redirect, withRouter
+  Route, Link, withRouter
  } from 'react-router-dom'
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { actionCreatorNewNotification as addNotification } from './reducers/notificationReducer'
 
 const Menu = () => {
   const padding = {
@@ -79,7 +81,7 @@ const CreateNew = (props) => {
       info,
       votes: 0
     })
-    props.notify(`${content} was added by ${author}`)
+    props.addNotification(`${content} was added by ${author}`)
     setTimeout(() => props.notify(''), 10000)
     props.history.push('/')
   }
@@ -109,58 +111,23 @@ const CreateNew = (props) => {
 const CreateNewAnecdote = withRouter(CreateNew)
 
 
-const App = () => {
-  const [anecdotes, setAnecdotes] = useState([
-    {
-      content: 'If it hurts, do it more often',
-      author: 'Jez Humble',
-      info: 'https://martinfowler.com/bliki/FrequencyReducesDifficulty.html',
-      votes: 0,
-      id: '1'
-    },
-    {
-      content: 'Premature optimization is the root of all evil',
-      author: 'Donald Knuth',
-      info: 'http://wiki.c2.com/?PrematureOptimization',
-      votes: 0,
-      id: '2'
-    }
-  ])
-
-  const [notification, setNotification] = useState('')
+const App = (props) => {
+  const [anecdotes, setAnecdotes] = useState(props.anecdotes)
 
   const addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
   }
 
-  const findAnecdoteId = id => {
-    return anecdotes.find(anecdote => anecdote.id === id)
-  }
-
   const anecdoteById = (id) =>
     anecdotes.find(a => a.id === id)
-
-  const vote = (id) => {
-    const anecdote = anecdoteById(id)
-
-    const voted = {
-      ...anecdote,
-      votes: anecdote.votes + 1
-    }
-
-    setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
-  }
-
-  const setNotificationHandler = notification => setNotification(notification)
-
   
-const Routes = () => {
+const Routes = (props) => {
   return (
     <div>
       <Route exact path="/" render={() => <AnecdoteList anecdotes={anecdotes} /> } />
       <Route exact path="/anecdotes" render={() => <AnecdoteList anecdotes={anecdotes} /> } />
-      <Route path="/create" render={() => <CreateNewAnecdote addNew={addNew} notify={setNotificationHandler} /> } />
+      <Route path="/create" render={() => <CreateNewAnecdote addNew={addNew} addNotification={props.addNotification} /> } />
       <Route path="/about" render={() => <About /> } />
       <Route exact path='/anecdotes/:id' render={({ match }) => <Anecdote anecdote={anecdoteById(match.params.id)}/>}  />
     </div>
@@ -190,11 +157,22 @@ const Notify = ({ notification }) => {
     <Router>
       <h1>Software anecdotes</h1>
       <Menu />
-      <Notify notification={notification} />
-      <Routes />
+      <Notify notification={props.notification} />
+      <Routes addNotification={props.addNotification}/>
       <Footer />
     </Router>
   )
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    anecdotes: state.anecdotes,
+    notification: state.notification
+  }
+}
+
+const mapDispatchToProps = {
+  addNotification
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

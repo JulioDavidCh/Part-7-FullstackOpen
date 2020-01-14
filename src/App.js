@@ -5,6 +5,7 @@ import {
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { actionCreatorNewNotification as addNotification } from './reducers/notificationReducer'
+import Notify from './components/Notify'
 
 const Menu = () => {
   const padding = {
@@ -81,8 +82,7 @@ const CreateNew = (props) => {
       info,
       votes: 0
     })
-    props.addNotification(`${content} was added by ${author}`)
-    setTimeout(() => props.notify(''), 10000)
+    props.addNotification(`${content} was added by ${author}`, 5)
     props.history.push('/')
   }
 
@@ -134,24 +134,24 @@ const Routes = (props) => {
   )
 }
 
-const Notify = ({ notification }) => {
-  const styledNotification = {
-    padding: 10,
-    border: '2px solid green'
-  }
+// const Notify = ({ notification }) => {
+//   const styledNotification = {
+//     padding: 10,
+//     border: '2px solid green'
+//   }
 
-  let ourStyle
+//   let ourStyle
 
-  notification === ''
-  ? ourStyle = {}
-  : ourStyle = styledNotification
+//   notification === ''
+//   ? ourStyle = {}
+//   : ourStyle = styledNotification
 
-  return (
-    <div style={ourStyle}>
-      {notification}
-    </div>
-  )
-}
+//   return (
+//     <div style={ourStyle}>
+//       {notification}
+//     </div>
+//   )
+// }
 
   return (
     <Router>
@@ -166,8 +166,7 @@ const Notify = ({ notification }) => {
 
 const mapStateToProps = state => {
   return {
-    anecdotes: state.anecdotes,
-    notification: state.notification
+    anecdotes: state.anecdotes
   }
 }
 

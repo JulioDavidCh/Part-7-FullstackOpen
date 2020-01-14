@@ -8,7 +8,7 @@ const notificationReducer = (state='', action) => {
 }
 
 const actionCreatorNewNotification = (data, time) => {
-  console.log(data, time)
+
   return dispatch => {
     dispatch({
       type: 'NEW_NOTIFICATION',

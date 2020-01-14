@@ -2,10 +2,11 @@ import {
   BrowserRouter as Router,
   Route, Link, withRouter
  } from 'react-router-dom'
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { actionCreatorNewNotification as addNotification } from './reducers/notificationReducer'
 import Notify from './components/Notify'
+import { actionCreatorNewAnecdote as addAnecdote } from './reducers/anecdotesReducer'
 
 const Menu = () => {
   const padding = {
@@ -21,19 +22,22 @@ const Menu = () => {
 }
 
 
-const AnecdoteList = ({ anecdotes }) => (
-  <div>
-    <h2>Anecdotes</h2>
-    <ul>
-      {anecdotes
-      .map(anecdote => 
-      <li key={anecdote.id} >
-        <Link to={`/anecdotes/${anecdote.id}`} >{anecdote.content}</Link>
-      </li>
-      )}
-    </ul>
-  </div>
-)
+const AnecdoteList = ({ anecdotes }) => {
+
+  return(
+    <div>
+      <h2>Anecdotes</h2>
+      <ul>
+        {anecdotes
+        .map(anecdote => 
+        <li key={anecdote.id} >
+          <Link to={`/anecdotes/${anecdote.id}`} >{anecdote.content}</Link>
+        </li>
+        )}
+      </ul>
+    </div>
+  )
+}
 
 const Anecdote = ({ anecdote }) => (
   <div>
@@ -69,19 +73,22 @@ const Footer = () => (
 
 
 const CreateNew = (props) => {
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
-
 
   const handleSubmit = (e) => {
+
+    const target = e.target
+    const content = target.content.value
+    const author = target.author.value
+    const info = target.info.value
+
     e.preventDefault()
-    props.addNew({
+
+    props.addAnecdote(
       content,
       author,
-      info,
-      votes: 0
-    })
+      info
+    )
+
     props.addNotification(`${content} was added by ${author}`, 5)
     props.history.push('/')
   }
@@ -92,15 +99,15 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input name='content' />
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input name='author' />
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e) => setInfo(e.target.value)} />
+          <input name='info' />
         </div>
         <button>create</button>
       </form>
@@ -112,53 +119,32 @@ const CreateNewAnecdote = withRouter(CreateNew)
 
 
 const App = (props) => {
-  const [anecdotes, setAnecdotes] = useState(props.anecdotes)
-
-  const addNew = (anecdote) => {
-    anecdote.id = (Math.random() * 10000).toFixed(0)
-    setAnecdotes(anecdotes.concat(anecdote))
-  }
 
   const anecdoteById = (id) =>
-    anecdotes.find(a => a.id === id)
+    props.anecdotes.find(a => a.id === id)
   
-const Routes = (props) => {
-  return (
-    <div>
-      <Route exact path="/" render={() => <AnecdoteList anecdotes={anecdotes} /> } />
-      <Route exact path="/anecdotes" render={() => <AnecdoteList anecdotes={anecdotes} /> } />
-      <Route path="/create" render={() => <CreateNewAnecdote addNew={addNew} addNotification={props.addNotification} /> } />
-      <Route path="/about" render={() => <About /> } />
-      <Route exact path='/anecdotes/:id' render={({ match }) => <Anecdote anecdote={anecdoteById(match.params.id)}/>}  />
-    </div>
-  )
-}
-
-// const Notify = ({ notification }) => {
-//   const styledNotification = {
-//     padding: 10,
-//     border: '2px solid green'
-//   }
-
-//   let ourStyle
-
-//   notification === ''
-//   ? ourStyle = {}
-//   : ourStyle = styledNotification
-
-//   return (
-//     <div style={ourStyle}>
-//       {notification}
-//     </div>
-//   )
-// }
+  const Routes = (props) => {
+    return (
+      <div>
+        <Route exact path="/" render={() => <AnecdoteList anecdotes={props.anecdotes} /> } />
+        <Route exact path="/anecdotes" render={() => <AnecdoteList anecdotes={props.anecdotes} /> } />
+        <Route path="/create" render={() => <CreateNewAnecdote addAnecdote={props.addAnecdote} addNotification={props.addNotification} /> } />
+        <Route path="/about" render={() => <About /> } />
+        <Route exact path='/anecdotes/:id' render={({ match }) => <Anecdote anecdote={anecdoteById(match.params.id)}/>}  />
+      </div>
+    )
+  }
 
   return (
     <Router>
       <h1>Software anecdotes</h1>
       <Menu />
       <Notify notification={props.notification} />
-      <Routes addNotification={props.addNotification}/>
+      <Routes 
+        addNotification={props.addNotification} 
+        addAnecdote={props.addAnecdote}
+        anecdotes={props.anecdotes}
+      />
       <Footer />
     </Router>
   )
@@ -171,7 +157,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  addNotification
+  addNotification,
+  addAnecdote
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

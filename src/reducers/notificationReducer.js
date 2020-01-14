@@ -7,9 +7,19 @@ const notificationReducer = (state='', action) => {
   }
 }
 
-const actionCreatorNewNotification = data => ({
-  type: 'NEW_NOTIFICATION',
-  data
-})
+const actionCreatorNewNotification = (data, time) => {
+  console.log(data, time)
+  return dispatch => {
+    dispatch({
+      type: 'NEW_NOTIFICATION',
+      data 
+    })
+    setTimeout(()=> dispatch({
+      type: 'NEW_NOTIFICATION',
+      data: '' 
+    }),
+    time*1000)
+  }
+}
 
 export { notificationReducer, actionCreatorNewNotification }

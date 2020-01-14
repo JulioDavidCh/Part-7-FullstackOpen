@@ -7,6 +7,9 @@ import { connect } from 'react-redux'
 import { actionCreatorNewNotification as addNotification } from './reducers/notificationReducer'
 import Notify from './components/Notify'
 import { actionCreatorNewAnecdote as addAnecdote } from './reducers/anecdotesReducer'
+import About from './components/About'
+import Footer from './components/Footer'
+import AnecdoteList from './components/AnecdoteList'
 
 const Menu = () => {
   const padding = {
@@ -21,24 +24,6 @@ const Menu = () => {
   )
 }
 
-
-const AnecdoteList = ({ anecdotes }) => {
-
-  return(
-    <div>
-      <h2>Anecdotes</h2>
-      <ul>
-        {anecdotes
-        .map(anecdote => 
-        <li key={anecdote.id} >
-          <Link to={`/anecdotes/${anecdote.id}`} >{anecdote.content}</Link>
-        </li>
-        )}
-      </ul>
-    </div>
-  )
-}
-
 const Anecdote = ({ anecdote }) => (
   <div>
     <h2>{anecdote.content} by {anecdote.author}</h2>
@@ -47,30 +32,6 @@ const Anecdote = ({ anecdote }) => (
 
   </div>
 )
-
-const About = () => (
-  <div>
-    <h2>About anecdote app</h2>
-    <p>According to Wikipedia:</p>
-
-    <em>An anecdote is a brief, revealing account of an individual person or an incident.
-      Occasionally humorous, anecdotes differ from jokes because their primary purpose is not simply to provoke laughter but to reveal a truth more general than the brief tale itself,
-      such as to characterize a person by delineating a specific quirk or trait, to communicate an abstract idea about a person, place, or thing through the concrete details of a short narrative.
-      An anecdote is "a story with a point."</em>
-
-    <p>Software engineering is full of excellent anecdotes, at this app you can find the best and add more.</p>
-  </div>
-)
-
-const Footer = () => (
-  <div>
-    <br></br>
-    Anecdote app for <a href='https://courses.helsinki.fi/fi/tkt21009'>Full Stack -sovelluskehitys</a>.
-
-    See <a href='https://github.com/fullstack-hy2019/routed-anecdotes/blob/master/src/App.js'>https://github.com/fullstack-hy2019/routed-anecdotes/blob/master/src/App.js</a> for the source code.
-  </div>
-)
-
 
 const CreateNew = (props) => {
 
@@ -126,8 +87,8 @@ const App = (props) => {
   const Routes = (props) => {
     return (
       <div>
-        <Route exact path="/" render={() => <AnecdoteList anecdotes={props.anecdotes} /> } />
-        <Route exact path="/anecdotes" render={() => <AnecdoteList anecdotes={props.anecdotes} /> } />
+        <Route exact path="/" render={() => <AnecdoteList /> } />
+        <Route exact path="/anecdotes" render={() => <AnecdoteList /> } />
         <Route path="/create" render={() => <CreateNewAnecdote addAnecdote={props.addAnecdote} addNotification={props.addNotification} /> } />
         <Route path="/about" render={() => <About /> } />
         <Route exact path='/anecdotes/:id' render={({ match }) => <Anecdote anecdote={anecdoteById(match.params.id)}/>}  />

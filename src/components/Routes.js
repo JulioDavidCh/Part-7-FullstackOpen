@@ -4,6 +4,7 @@ import AnecdoteList from '../components/AnecdoteList'
 import CreateNewAnecdote from '../components/CreateNewAnecdote'
 import Anecdote from '../components/Anecdote'
 import About from '../components/About'
+import Login from '../components/Login'
 
 const Routes = () => {
   return (
@@ -13,6 +14,7 @@ const Routes = () => {
       <Route path="/create" render={() => <CreateNewAnecdote /> } />
       <Route path="/about" render={() => <About /> } />
       <Route exact path='/anecdotes/:id' render={({ match }) => <Anecdote id={match.params.id}/>}  />
+      <Route path="/login" render={() => <Login /> } />
     </div>
   )
 }

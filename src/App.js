@@ -7,7 +7,7 @@ import Footer from './components/Footer'
 import Menu from './components/Menu'
 import Routes from './components/Routes'
 
-const App = (props) => {
+const App = () => {
 
   return (
     <Router>

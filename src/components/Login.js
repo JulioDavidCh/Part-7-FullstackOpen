@@ -1,8 +1,16 @@
 import React from 'react'
+import { actionCreatorSetUsername } from '../reducers/userReducer'
+import { connect } from 'react-redux'
+import loginService from '../services/login'
 
-const Login = () => {
-  const loginHandler = event => {
+const Login = (props) => {
+  const loginHandler = (event) => {
     event.preventDefault()
+    const username = event.target.username.value
+    const password = event.target.password.value
+    props.loginUser(username, password)
+    event.target.username.value = ''
+    event.target.password.value = ''
   }
 
   return(
@@ -30,4 +38,21 @@ const Login = () => {
   )
 }
 
-export default Login
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loginUser: async (username, password) => {
+      const response = await loginService(username, password)
+      console.log(response)
+      window.localStorage.setItem('token', response.token)
+      window.localStorage.setItem('username', response.username)
+      window.localStorage.setItem('name', response.name)
+      dispatch(actionCreatorSetUsername(response.username))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -1,22 +1,7 @@
-const initialState = [
-  {
-    content: 'If it hurts, do it more often',
-    author: 'Jez Humble',
-    info: 'https://martinfowler.com/bliki/FrequencyReducesDifficulty.html',
-    votes: 0,
-    id: '1'
-  },
-  {
-    content: 'Premature optimization is the root of all evil',
-    author: 'Donald Knuth',
-    info: 'http://wiki.c2.com/?PrematureOptimization',
-    votes: 0,
-    id: '2'
-  }
-]
-
-const anecdotesReducer = (state = initialState, action) => {
+const anecdotesReducer = (state = null, action) => {
   switch (action.type) {
+    case 'INITIALIZE_ANECDOTES':
+      return action.data
     case 'NEW_ANECDOTE':
       return [...state, action.data]
   default:
@@ -24,8 +9,7 @@ const anecdotesReducer = (state = initialState, action) => {
   }
 }
 
-const actionCreatorNewAnecdote = (content, author, info) => {
-  const id= (Math.random() * 10000).toFixed(0)
+const actionCreatorNewAnecdote = (content, author, info, id, user) => {
   return {
     type: 'NEW_ANECDOTE',
     data: {
@@ -33,9 +17,17 @@ const actionCreatorNewAnecdote = (content, author, info) => {
       author,
       info,
       votes: 0,
-      id
+      id,
+      user
     }
   }
 }
 
-export { anecdotesReducer, actionCreatorNewAnecdote }
+const actionCreatorInitializeAnecdotes = (data) => {
+  return {
+    type: 'INITIALIZE_ANECDOTES',
+    data
+  }
+}
+
+export { anecdotesReducer, actionCreatorNewAnecdote, actionCreatorInitializeAnecdotes }

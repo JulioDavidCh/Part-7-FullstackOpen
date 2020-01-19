@@ -30,6 +30,11 @@ const Menu = (props) => {
         ? loggedUser(props.user)
         : <Link style={padding} to='/login' >login</Link>
       }
+      {
+        props.user
+        ? ''
+        : <Link style={padding} to='/register' >register</Link>
+      }
     </div>
   )
 }

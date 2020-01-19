@@ -16,6 +16,7 @@ const Login = (props) => {
   return(
     <div>
       <form onSubmit={loginHandler}>
+        <h2>Login</h2>
         <ul>
           <li>
             <label>

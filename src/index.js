@@ -6,12 +6,14 @@ import { Provider } from 'react-redux'
 import { anecdotesReducer } from './reducers/anecdotesReducer'
 import { notificationReducer } from './reducers/notificationReducer'
 import { userReducer } from './reducers/userReducer'
+import { userInfoReducer } from './reducers/userInfoReducer'
 import thunk from 'redux-thunk'
 
 const reducer = combineReducers({
   anecdotes: anecdotesReducer,
   notification: notificationReducer,
-  user: userReducer
+  user: userReducer,
+  userinfo: userInfoReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))

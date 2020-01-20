@@ -35,6 +35,7 @@ const Menu = (props) => {
         ? ''
         : <Link style={padding} to='/register' >register</Link>
       }
+      <Link style={padding} to='/users' >users</Link>
     </div>
   )
 }

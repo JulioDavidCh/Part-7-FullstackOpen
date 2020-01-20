@@ -7,6 +7,7 @@ import About from './About'
 import Login from './Login'
 import Register from './Register'
 import UserInfo from './UserInfo'
+import UserAnecdotes from './UserAnecdote'
 
 const Routes = () => {
   return (
@@ -18,7 +19,8 @@ const Routes = () => {
       <Route exact path='/anecdotes/:id' render={({ match }) => <Anecdote id={match.params.id}/>}  />
       <Route path="/login" render={() => <Login /> } />
       <Route path="/register" render={() => <Register /> } />
-      <Route path="/users" render={() => <UserInfo /> } />
+      <Route exact path="/users" render={() => <UserInfo /> } />
+      <Route exact path="/users/:id" render={({ match }) => <UserAnecdotes id={match.params.id} /> } />
     </div>
   )
 }

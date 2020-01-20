@@ -2,6 +2,7 @@ import React from 'react'
 import fetchUserInfo from '../services/users'
 import { connect } from 'react-redux'
 import { actionCreatorSetUserInfo as infoAC } from '../reducers/userInfoReducer'
+import { Link } from 'react-router-dom'
 
 const UserInfo = (props) => {
   const clickHandler = () => {
@@ -22,7 +23,7 @@ const UserInfo = (props) => {
           props.userinfo.map(user => 
             <tr key={user.id}>
               <td>
-                {user.username}
+              <Link to={`/users/${user.id}`} >{user.username}</Link>
               </td>
               <td>
                 {user.anecdotes.length}

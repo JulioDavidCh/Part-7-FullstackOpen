@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 const UserAnecdotes = (props) => {
   const id = props.id
   const ourUser = props.userAnecdotes.filter(user => user.id === id)
-  console.log(ourUser)
   const anecdotesUser = 
   ourUser.length > 0
   ? ourUser[0].anecdotes

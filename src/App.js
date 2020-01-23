@@ -9,6 +9,7 @@ import Routes from './components/Routes'
 import { getAnecdotes } from './services/anecdote'
 import { actionCreatorInitializeAnecdotes as setAnecdotes } from './reducers/anecdotesReducer'
 import { connect } from 'react-redux'
+import { Container } from 'semantic-ui-react'
 
 const App = (props) => {
 
@@ -17,13 +18,15 @@ const App = (props) => {
   }, [])
 
   return (
-    <Router>
-      <h1>Software anecdotes</h1>
-      <Menu />
-      <Notify />
-      <Routes />
-      <Footer />
-    </Router>
+    <Container>
+      <Router>
+        <h1>Software anecdotes</h1>
+        <Menu />
+        <Notify />
+        <Routes />
+        <Footer />
+      </Router>
+    </Container>
   )
 }
 

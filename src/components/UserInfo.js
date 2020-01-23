@@ -3,6 +3,7 @@ import fetchUserInfo from '../services/users'
 import { connect } from 'react-redux'
 import { actionCreatorSetUserInfo as infoAC } from '../reducers/userInfoReducer'
 import { Link } from 'react-router-dom'
+import { Table, Header, Button } from 'semantic-ui-react'
 
 const UserInfo = (props) => {
   const clickHandler = () => {
@@ -11,28 +12,30 @@ const UserInfo = (props) => {
 
   return (
     <div>
-      <h2>Users</h2>
-      <button onClick={clickHandler}>Refresh</button>
-      <table>
-        <tbody>
-        <tr>
-          <th>users</th>
-          <th>anecdotes</th>
-        </tr>
-        {
-          props.userinfo.map(user => 
-            <tr key={user.id}>
-              <td>
-              <Link to={`/users/${user.id}`} >{user.username}</Link>
-              </td>
-              <td>
-                {user.anecdotes.length}
-              </td>
-            </tr>
-          )
-        }
-        </tbody>
-      </table>
+      <Header as='h2' textAlign='center'>Users</Header>
+      <Button primary onClick={clickHandler}>Refresh</Button>
+      <Table celled padded>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>users</Table.HeaderCell>
+            <Table.HeaderCell>anecdotes</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {
+            props.userinfo.map(user => 
+              <Table.Row key={user.id}>
+                <Table.Cell>
+                <Link to={`/users/${user.id}`} >{user.username}</Link>
+                </Table.Cell>
+                <Table.Cell>
+                  {user.anecdotes.length}
+                </Table.Cell>
+              </Table.Row>
+            )
+          }
+        </Table.Body>
+      </Table>
     </div>
   )
 }

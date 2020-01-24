@@ -1,23 +1,33 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { Table } from 'semantic-ui-react'
 
 const AnecdoteList = (props) => {
   return(
     <div>
       <h2>Anecdotes</h2>
-      <ul>
         {
           props.anecdotes
-          ? props.anecdotes
-          .map(anecdote => 
-          <li key={anecdote.id} >
-            <Link to={`/anecdotes/${anecdote.id}`} >{anecdote.content}</Link>
-          </li>
-          )
+          ? <Table striped celled>
+              <Table.Body>
+                {
+                  props.anecdotes
+                  .map(anecdote =>
+                    <Table.Row key={anecdote.id}>
+                      <Table.Cell key={String(Math.random())}>
+                        <Link to={`/anecdotes/${anecdote.id}`} >{anecdote.content}</Link>
+                      </Table.Cell>
+                      <Table.Cell key={String(Math.random())}>
+                        {anecdote.user.username}
+                      </Table.Cell>
+                    </Table.Row> 
+                  )
+                }
+              </Table.Body>
+            </Table>
           : ''
         }
-      </ul>
     </div>
   )
 }

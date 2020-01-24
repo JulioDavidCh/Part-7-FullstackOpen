@@ -1,9 +1,9 @@
 const userInfoReducer = (state = [], action) => {
   switch (action.type) {
-    case 'SET_USER_INFO':
-      return action.data
-  default : 
-  return state
+  case 'SET_USER_INFO':
+    return action.data
+  default :
+    return state
   }
 }
 

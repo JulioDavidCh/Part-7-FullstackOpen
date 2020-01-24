@@ -7,12 +7,12 @@ const AnecdoteList = (props) => {
   return(
     <div>
       <h2>Anecdotes</h2>
-        {
-          props.anecdotes
+      {
+        props.anecdotes
           ? <Table striped celled>
-              <Table.Body>
-                {
-                  props.anecdotes
+            <Table.Body>
+              {
+                props.anecdotes
                   .map(anecdote =>
                     <Table.Row key={anecdote.id}>
                       <Table.Cell key={String(Math.random())}>
@@ -21,13 +21,13 @@ const AnecdoteList = (props) => {
                       <Table.Cell key={String(Math.random())}>
                         {anecdote.user.username}
                       </Table.Cell>
-                    </Table.Row> 
+                    </Table.Row>
                   )
-                }
-              </Table.Body>
-            </Table>
+              }
+            </Table.Body>
+          </Table>
           : ''
-        }
+      }
     </div>
   )
 }

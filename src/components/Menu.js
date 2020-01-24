@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { actionCreatorSetUsername as setUser } from '../reducers/userReducer'
 import { connect } from 'react-redux'
-import { Menu as MenuUI , Button} from 'semantic-ui-react'
+import { Menu as MenuUI , Button } from 'semantic-ui-react'
 
 const Menu = (props) => {
   const padding = {
@@ -13,9 +13,9 @@ const Menu = (props) => {
     return(
       <div>
         {props.user} Logged In
-        <Button onClick={()=>{
-           window.localStorage.clear()
-           props.setUser(null)
+        <Button onClick={() => {
+          window.localStorage.clear()
+          props.setUser(null)
         }}
         secondary
         size='large'
@@ -43,20 +43,20 @@ const Menu = (props) => {
           <MenuUI.Item>users</MenuUI.Item>
         </Link>
         <MenuUI.Menu position='right'>
-        {
-          props.user
-          ? <span style={padding}>{loggedUser(props.user)}</span>
-          : <Link style={padding} to='/login' >
-              <MenuUI.Item position='right'>login</MenuUI.Item>
-            </Link>
-        }
-        {
-          props.user
-          ? ''
-          : <Link style={padding} to='/register' >
-              <MenuUI.Item position='right'>register</MenuUI.Item>
-            </Link>
-        }
+          {
+            props.user
+              ? <span style={padding}>{loggedUser(props.user)}</span>
+              : <Link style={padding} to='/login' >
+                <MenuUI.Item position='right'>login</MenuUI.Item>
+              </Link>
+          }
+          {
+            props.user
+              ? ''
+              : <Link style={padding} to='/register' >
+                <MenuUI.Item position='right'>register</MenuUI.Item>
+              </Link>
+          }
         </MenuUI.Menu>
       </MenuUI>
     </div>

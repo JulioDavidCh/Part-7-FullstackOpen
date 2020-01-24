@@ -1,6 +1,6 @@
-import { 
+import {
   BrowserRouter as Router
- } from 'react-router-dom'
+} from 'react-router-dom'
 import React, { useEffect } from 'react'
 import Notify from './components/Notify'
 import Footer from './components/Footer'

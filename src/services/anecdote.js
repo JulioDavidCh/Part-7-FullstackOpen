@@ -20,7 +20,7 @@ const postAnecdote = async (content, author, info, token) => {
       Authorization: `Bearer ${token}`
     }
   })
-  
+
   return response.data
 }
 

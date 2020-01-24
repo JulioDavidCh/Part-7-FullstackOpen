@@ -23,10 +23,10 @@ const UserInfo = (props) => {
         </Table.Header>
         <Table.Body>
           {
-            props.userinfo.map(user => 
+            props.userinfo.map(user =>
               <Table.Row key={user.id}>
                 <Table.Cell>
-                <Link to={`/users/${user.id}`} >{user.username}</Link>
+                  <Link to={`/users/${user.id}`} >{user.username}</Link>
                 </Table.Cell>
                 <Table.Cell>
                   {user.anecdotes.length}

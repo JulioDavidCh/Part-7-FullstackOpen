@@ -11,8 +11,8 @@ const Notify = (props) => {
   let ourStyle
 
   notification === ''
-  ? ourStyle = {}
-  : ourStyle = styledNotification
+    ? ourStyle = {}
+    : ourStyle = styledNotification
 
   return (
     <div style={ourStyle}>

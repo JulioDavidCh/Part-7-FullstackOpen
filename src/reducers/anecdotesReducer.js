@@ -1,11 +1,11 @@
 const anecdotesReducer = (state = null, action) => {
   switch (action.type) {
-    case 'INITIALIZE_ANECDOTES':
-      return action.data
-    case 'NEW_ANECDOTE':
-      return [...state, action.data]
+  case 'INITIALIZE_ANECDOTES':
+    return action.data
+  case 'NEW_ANECDOTE':
+    return [...state, action.data]
   default:
-  return state
+    return state
   }
 }
 

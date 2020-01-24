@@ -1,9 +1,9 @@
 const notificationReducer = (state='', action) => {
   switch (action.type) {
-    case 'NEW_NOTIFICATION':
-      return action.data
+  case 'NEW_NOTIFICATION':
+    return action.data
   default :
-  return state
+    return state
   }
 }
 
@@ -12,11 +12,11 @@ const actionCreatorNewNotification = (data, time) => {
   return dispatch => {
     dispatch({
       type: 'NEW_NOTIFICATION',
-      data 
+      data
     })
-    setTimeout(()=> dispatch({
+    setTimeout(() => dispatch({
       type: 'NEW_NOTIFICATION',
-      data: '' 
+      data: ''
     }),
     time*1000)
   }

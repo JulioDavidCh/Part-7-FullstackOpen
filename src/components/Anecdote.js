@@ -37,14 +37,14 @@ const Anecdote = (props) => {
       <div>
         <h2>comments</h2>
         <form onSubmit={submitHandler}>
-         <input name='comment' />
-         <button type='submit'>add comment</button>
+          <input name='comment' />
+          <button type='submit'>add comment</button>
         </form>
       </div>
       <ul key={String(Math.random())}>
         {
-        newComments
-        .map(comment => <li key={String(Math.random())}>{comment}</li>)
+          newComments
+            .map(comment => <li key={String(Math.random())}>{comment}</li>)
         }
       </ul>
     </div>

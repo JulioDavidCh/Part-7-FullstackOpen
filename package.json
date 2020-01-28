@@ -16,7 +16,7 @@
     "semantic-ui-react": "^0.88.2"
   },
   "scripts": {
-    "build": "webpack --mode=development",
+    "build": "webpack --mode=production",
     "start": "webpack-dev-server --mode=development"
   },
   "eslintConfig": {

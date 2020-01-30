@@ -21,17 +21,17 @@ const Login = (props) => {
           <li>
             <label>
               <div>Username: </div>
-              <input name='username' />
+              <input name='username' data-cy="usernameInput"/>
             </label>
           </li>
           <li>
             <label>
               <div>Password: </div>
-              <input name='password' type='password' />
+              <input name='password' type='password' data-cy="passwordInput"/>
             </label>
           </li>
           <li>
-            <button type='submit'>Login</button>
+            <button type='submit' data-cy="loginSubmit">Login</button>
           </li>
         </ul>
       </form>

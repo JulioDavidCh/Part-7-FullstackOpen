@@ -34,17 +34,17 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' />
+          <input name='content' data-cy="content-input-anecdote"/>
         </div>
         <div>
           author
-          <input name='author' />
+          <input name='author' data-cy="author-input-anecdote"/>
         </div>
         <div>
           url for more info
-          <input name='info' />
+          <input name='info' data-cy="info-input-anecdote"/>
         </div>
-        <button>create</button>
+        <button type='submit' data-cy="submit-button-anecdote">create</button>
       </form>
     </div>
   )

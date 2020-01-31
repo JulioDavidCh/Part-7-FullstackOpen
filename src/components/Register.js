@@ -23,23 +23,23 @@ const Register = (props) => {
           <li>
             <label>
               <div>Username: </div>
-              <input name='username' />
+              <input name='username' data-cy="username-register"/>
             </label>
           </li>
           <li>
             <label>
               <div>Name: </div>
-              <input name='name' />
+              <input name='name' data-cy="name-register"/>
             </label>
           </li>
           <li>
             <label>
               <div>Password: </div>
-              <input name='password' type='password' />
+              <input name='password' type='password' data-cy="password-register"/>
             </label>
           </li>
           <li>
-            <button type='submit'>Register</button>
+            <button type='submit' data-cy="submit-register">Register</button>
           </li>
         </ul>
       </form>

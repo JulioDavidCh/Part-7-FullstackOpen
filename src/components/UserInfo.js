@@ -13,7 +13,7 @@ const UserInfo = (props) => {
   return (
     <div>
       <Header as='h2' textAlign='center'>Users</Header>
-      <Button primary onClick={clickHandler}>Refresh</Button>
+      <Button primary onClick={clickHandler} data-cy="refresh-users">Refresh</Button>
       <Table celled padded>
         <Table.Header>
           <Table.Row>
@@ -22,8 +22,7 @@ const UserInfo = (props) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {
-            props.userinfo.map(user =>
+          { props.userinfo.map(user =>
               <Table.Row key={user.id}>
                 <Table.Cell>
                   <Link to={`/users/${user.id}`} >{user.username}</Link>

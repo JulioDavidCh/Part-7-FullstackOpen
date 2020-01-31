@@ -20,6 +20,7 @@ const Menu = (props) => {
         secondary
         size='large'
         position='right'
+        data-cy="menu-logout"
         >
           Logout
         </Button>
@@ -31,30 +32,30 @@ const Menu = (props) => {
     <div>
       <MenuUI>
         <Link style={padding} to='/anecdotes' >
-          <MenuUI.Item>anecdotes</MenuUI.Item>
+          <MenuUI.Item data-cy="menu-anecdotes">anecdotes</MenuUI.Item>
         </Link>
         <Link style={padding} to='/create' >
-          <MenuUI.Item>create new</MenuUI.Item>
+          <MenuUI.Item data-cy="menu-createanecdote">create new</MenuUI.Item>
         </Link>
         <Link style={padding} to='/about' >
-          <MenuUI.Item>about</MenuUI.Item>
+          <MenuUI.Item data-cy="menu-about">about</MenuUI.Item>
         </Link>
         <Link style={padding} to='/users' >
-          <MenuUI.Item>users</MenuUI.Item>
+          <MenuUI.Item data-cy="menu-users">users</MenuUI.Item>
         </Link>
         <MenuUI.Menu position='right'>
           {
             props.user
               ? <span style={padding}>{loggedUser(props.user)}</span>
               : <Link style={padding} to='/login' >
-                <MenuUI.Item position='right'>login</MenuUI.Item>
+                <MenuUI.Item position='right' data-cy="menu-login">login</MenuUI.Item>
               </Link>
           }
           {
             props.user
               ? ''
               : <Link style={padding} to='/register' >
-                <MenuUI.Item position='right'>register</MenuUI.Item>
+                <MenuUI.Item position='right' data-cy="menu-register">register</MenuUI.Item>
               </Link>
           }
         </MenuUI.Menu>

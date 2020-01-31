@@ -9,7 +9,11 @@
 /coverage
 
 # production
+<<<<<<< HEAD
 # /build
+=======
+#/build
+>>>>>>> solution-7.19
 
 # misc
 .DS_Store
